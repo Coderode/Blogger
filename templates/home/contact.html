@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Contact | Kolaborate{% endblock title %}
+
+{% block body %}
+<div class="container my-3">
+    <h2>Contact to Kolaborators</h2>
+    <form method="POST" action="/contact"> {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="name" class="form-control" id="name" name="name" placeholder="Enter Your Name" required autofocus>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter Your Email" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter Your Phone Number" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="content">Write Your Query Here</label>
+            <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-dark btn-lg">Submit</button>
+    </form>
+</div>
+{% endblock body %}
+
+
+{% block js %}
+<script>
+    $('#navContact').addClass('active');
+</script>
+{% endblock js %}
