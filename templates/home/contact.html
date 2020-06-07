@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Contact | Kolaborate{% endblock title %}
+{% block  contactActive %}active{% endblock contactActive %}
 
 {% block body %}
-<div class="container my-3">
+<div class="container my-5 py-4">
     <h2>Contact to Kolaborators</h2>
     <form method="POST" action="/contact"> {% csrf_token %}
         <div class="form-group">
@@ -30,6 +31,5 @@
 
 {% block js %}
 <script>
-    $('#navContact').addClass('active');
 </script>
 {% endblock js %}

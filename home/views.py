@@ -1,11 +1,15 @@
 from django.shortcuts import render,HttpResponse
 from home.models import Contact
 from django.contrib import messages
+from blog.models import Post
+import datetime
+
 
 # Create your views here.
 def home(request):
-    return render(request,'home/home.html')
-    # return HttpResponse("this is home")
+    newPosts = Post.objects.order_by('-timeStamp')[:5]
+    context = {'newPosts':newPosts}
+    return render(request,'home/home.html',context)
 
 def contact(request):
     if request.method=="POST":
@@ -24,4 +28,10 @@ def contact(request):
 
 def about(request):
     return render(request,'home/about.html')
+
+def search(request):
+    query = request.GET['query']
+    allPosts = Post.objects.filter(title__icontains=query)
+    context = {'allPosts':allPosts}
+    return render(request,'home/search.html',context)
 
