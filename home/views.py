@@ -1,11 +1,15 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render,HttpResponse,redirect
 from home.models import Contact
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 from blog.models import Post
 import datetime
 
 
 # Create your views here.
+
+#HTML pages
 def home(request):
     newPosts = Post.objects.order_by('-timeStamp')[:5]
     context = {'newPosts':newPosts}
@@ -36,9 +40,74 @@ def search(request):
     else:
         allPostsTitle = Post.objects.filter(title__icontains=query)
         allPostsContent = Post.objects.filter(content__icontains=query)
+        allPostsAuthor = Post.objects.filter(author__icontains=query)
         allPosts = allPostsTitle.union(allPostsContent)
-    if allPosts.count() < 1:
+        allPosts = allPosts.union(allPostsAuthor)
+    if allPosts.count() == 0:
         messages.error(request,'No search results found. Please refine your query!')
     params = {'allPosts':allPosts,'query':query}
     return render(request,'home/search.html',params)
 
+#authentication APIs
+def handleSignup(request):
+    if request.method == 'POST':
+        #get the post parameter
+        username = request.POST['username']
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        email = request.POST['email']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+        #checks for user inputs
+        # username length and alphanumeric
+        errors = []
+        if len(username) > 10 or len(username) < 3 or not username.isalnum(): 
+            errors.append('Username length should be between 3 and 10 and it should be alphanumeric!')
+        if len(password1) < 5 or len(password1) > 30:
+            errors.append('Password length should be between 4 and 30!')
+        if len(fname) <3:
+            errors.append('Please enter a valid name!')
+        if password1 != password2:
+            errors.append('Passwords should Match!')
+
+        #if any error occures redirect to home
+        if len(errors) > 0 :
+            for error in errors:
+                messages.error(request,error)
+            return redirect('home')
+
+        #else create the user
+        #create the user
+        try:
+            myuser = User.objects.create_user(username,email,password1)
+            myuser.first_name = fname
+            myuser.last_name = lname
+            myuser.save()
+            messages.success(request,'Your Kolaborate Account has been successfully created! Now can login Now :-)')
+        except:
+            messages.error(request,'Username already exist please enter another unique username!')
+        return redirect('home')
+    else:
+        return HttpResponse('404 - Page Not Found')
+
+def handleLogin(request):
+    if request.method == 'POST':
+        #get the post parameters
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username= username, password= password)
+        if user is not None:
+            login(request,user)
+            messages.success(request, 'Welcome '+username+', You are successfully logged In!')
+            return redirect('home')
+        else:
+            messages.error(request,'Invalid credentials, Please try again!')
+            return redirect('home')
+    else:
+        return HttpResponse('404 - Page Not Found')
+
+def handleLogout(request):
+    logout(request)
+    messages.success(request, 'You are successfully logged out!')
+    return redirect('home')

@@ -16,6 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 
+#to make changes in the admin panel of the django
+admin.site.site_header = "Kolaborate Admin"
+admin.site.site_title = "Kolaborate Admin Panel"
+admin.site.index_title = "Kolaborate Admin Panel"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),

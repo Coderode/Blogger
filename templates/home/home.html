@@ -3,7 +3,7 @@
 {% block homeActive %} active {% endblock homeActive %}
 
 {% block body %}
-<div class="container-fluid my-4 py-4 mx-0 px-0">
+<div class="container-fluid mx-0 px-0">
     <div class="jumbotron">
         <div class="container">
             <h4 class="display-4">Welcome to Kolaborate</h4>
@@ -12,25 +12,25 @@
             <p><a class="btn btn-primary btn-lg" href="/blog" role="button">Go to blog »</a></p>
         </div>
     </div>
-    <div class="container">
-        <h3>Latest Blog Posts:</h3>
-        {% for post in newPosts %}
-            <div class="col-md-12 my-4">
-                <div
-                    class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                    <div class="col p-4 d-flex flex-column position-static">
-                        <strong class="d-inline-block mb-2 text-primary">Article by : {{post.author}}</strong>
-                        <h3 class="mb-0">{{post.title}}</h3>
-                        <div class="mb-1 text-muted">{{post.timeStamp}}</div>
-                        <p class="card-text mb-auto">{{post.content | truncatechars:200}}</p>
-                        <a href="/blog/{{post.slug}}" class="stretched-link">Continue reading...</a>
-                    </div>
-                    <div class="col-auto d-none d-lg-block">
-                    </div>
+</div>
+<div class="container my-3">
+    <h3>Latest Blog Posts:</h3>
+    {% for post in newPosts %}
+        <div class="col-md-12 my-4">
+            <div
+                class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-primary">Article by : {{post.author}}</strong>
+                    <h3 class="mb-0">{{post.title}}</h3>
+                    <div class="mb-1 text-muted">{{post.timeStamp}}</div>
+                    <p class="card-text mb-auto">{{post.content | truncatechars:200}}</p>
+                    <a href="/blog/{{post.slug}}" class="stretched-link">Continue reading...</a>
+                </div>
+                <div class="col-auto d-none d-lg-block">
                 </div>
             </div>
-        {% endfor %}
-    </div>
+        </div>
+    {% endfor %}
 </div>
 
 {% endblock body %}

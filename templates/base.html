@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="/">Kolaborate</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,25 +35,137 @@
                 <li class="nav-item {% block  contactActive %}{% endblock contactActive %}">
                     <a class="nav-link" href="/contact">Contact</a>
                 </li>
-                
+
             </ul>
             <form class="form-inline my-2 my-lg-0" method="get" action="/search">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query" id="query">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query"
+                    id="query">
+                <button class="btn btn-outline-success my-2 my-sm-0 mr-3" type="submit">Search</button>
             </form>
+            <!-- checking for the user is logged in or not to show buttons accordingly-->
+            <!-- if logged in (user.is_authenticated)-->
+            {% if user.is_authenticated %}
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Logged in as <b>{{request.user}}</b>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="/logout"><b>Logout</b></a>
+                    </div>
+                </div>
+            {% else %}
+                <!--otherwise show singup and login button-->
+                <!-- Button trigger sign modal -->
+                <button type="button" class="btn btn-outline-light mr-2" data-toggle="modal"
+                    data-target="#singupModal">Signup</button>
+                <!-- Button trigger for login modal-->
+                <button type="button" class="btn btn-outline-light mr-2" data-toggle="modal"
+                    data-target="#loginModal">Login</button>
+            {% endif %}
         </div>
     </nav>
-    
-    {% comment %} template for showing alert messages {% endcomment %}
-    {% for message in messages %}
-    <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show my-0" role="alert">
-      <strong>Message : {{message}}</strong>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    {% endfor %}
 
+    <!-- template for showing alert messages-->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show my-0" role="alert">
+            <strong>Message : {{message}}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+    {% endif %}
+    <!--Login and sing up modals-->
+
+    <!--Sign up Modal  form-->
+    <form method="post" action="/signup">{% csrf_token %}
+        <div class="modal fade" id="singupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="signupModalLabel">Sign up Here</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="signupmessage"></div>
+                        
+                        <div class="form-group">
+                            <label for="username">Choose a unique username:</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username (lowercase & alphanumeric" autofocus required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label for="fname">Enter First Name:</label>
+                                <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter First Name" required>
+                            </div>
+                            <div class="form-group col">
+                                <label for="lname">Enter Last Name:</label>
+                                <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Last Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Enter Your E-mail:</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter E-mail" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label for="password1">Choose a Password:</label>
+                                <input type="password" class="form-control" id="password1" name="password1"
+                                    placeholder="Choose Password" required>
+                            </div>
+                            <div class="form-group col">
+                                <label for="password2">Confirm Password:</label>
+                                <input type="password" class="form-control" id="password2" name="password2"
+                                    placeholder="Confirm Password" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Sign up</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!--login Modal form -->
+    <form method="post" action="/login">{% csrf_token %}
+        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="loginModalLabel">Login Here</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="loginmessage"></div>
+
+                        <div class="form-group">
+                            <label for="username">Username:</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username" autofocus required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="float-left btn btn-primary ml-2" data-toggle="modal" data-target="#singupModal" data-dismiss="modal">Register</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 
     {% block body %}{% endblock body %}
     <!-- Optional JavaScript -->
