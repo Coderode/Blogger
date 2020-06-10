@@ -27,4 +27,4 @@ class BlogComment(models.Model):
     # if parent is null - comment else that is a reply of a comment
 
     def __str__(self):
-        return str(sno)+' by '+self.user + ' for '+post
+        return self.comment[0:13]+'... by '+self.user.username

@@ -88,13 +88,13 @@ def handleSignup(request):
             messages.error(request,'Username already exist please enter another unique username!')
         return redirect('home')
     else:
-        return HttpResponse('404 - Page Not Found')
+        return HttpResponse('<h2>404 - Page Not Found</h2>')
 
 def handleLogin(request):
     if request.method == 'POST':
         #get the post parameters
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST['loginusername']
+        password = request.POST['loginpassword']
 
         user = authenticate(username= username, password= password)
         if user is not None:
@@ -105,7 +105,7 @@ def handleLogin(request):
             messages.error(request,'Invalid credentials, Please try again!')
             return redirect('home')
     else:
-        return HttpResponse('404 - Page Not Found')
+        return HttpResponse('<h2>404 - Page Not Found</h2>')
 
 def handleLogout(request):
     logout(request)
