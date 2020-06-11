@@ -102,7 +102,7 @@ def handleLogin(request):
             messages.success(request, 'Welcome '+username+', You are successfully logged In!')
             return redirect('home')
         else:
-            messages.error(request,'Invalid credentials, Please try again!')
+            messages.error(request,'Invalid credentials, Please try again! or signup before login if not registered!')
             return redirect('home')
     else:
         return HttpResponse('<h2>404 - Page Not Found</h2>')
