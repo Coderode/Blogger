@@ -1,13 +1,19 @@
 {% extends 'base.html' %}
 {% block title %}About | Kolaborate{% endblock title %}
 {% block  aboutActive %}active{% endblock aboutActive %}
-
+{% block css %}
+    .jumbotron{
+        background:url('/static/images/aboutJumbotron.png');
+        background-size: 100% 100%;
+        color:white;
+    }
+{% endblock css %}
 {% block body %}
 <div class="container-fluid px-0 mx-0">
     <section class="jumbotron text-center">
         <div class="container">
             <h1>Who We Are?</h1>
-            <p class="lead text-muted">We are the Kolaborators. It is made to the way of providing good quality contents
+            <p class="lead" style="color:white;">We are the Kolaborators. It is made to the way of providing good quality contents
                 with effective and learning and two way communication between its users and the blogger. We provide a
                 platform for the effective learning and all of the materials we provide are well created and accurate.
                 we try our best as possible as so that you get the most quality content from us...</p>

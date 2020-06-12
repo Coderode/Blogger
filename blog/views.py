@@ -13,6 +13,10 @@ def blogHome(request):
 
 def blogPost(request,slug):
     post = Post.objects.filter(slug=slug).first()
+    #whenever user comes to the post view will increase by one
+    post.views=post.views+1 
+    post.save()
+
     if post is None:
         return HttpResponse('<h2>404 Page Not Found!</h2>')
     comments = BlogComment.objects.filter(post=post, parent=None)

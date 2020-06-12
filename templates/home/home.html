@@ -2,13 +2,46 @@
 {% block title %}Home | Kolaborate{% endblock title %}
 {% block homeActive %} active {% endblock homeActive %}
 
+{% block css %}
+    .jumbotron{
+        background:url('/static/images/homeJumbotron.jpg');
+        background-size: 100% 100%;
+    }
+
+    .ml6 {
+        position: relative;
+        font-weight: 900;
+        font-size: 3.3em;
+    }
+
+    .ml6 .text-wrapper {
+        position: relative;
+        display: inline-block;
+        padding-top: 0.2em;
+        padding-right: 0.05em;
+        padding-bottom: 0.1em;
+        overflow: hidden;
+    }
+
+    .ml6 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+{% endblock css %}
+
 {% block body %}
 <div class="container-fluid mx-0 px-0">
     <div class="jumbotron">
         <div class="container">
-            <h4 class="display-4">Welcome to Kolaborate</h4>
-            <p>Hi, we offer quality blogs and we gather most popular information and accurate conent for you only! So
-                come and explore it. it will give you the way for knowledge sharing...</p>
+            <strong>
+            <h4 class="ml6">
+                <span class="text-wrapper">
+                    <span class="letters">Welcome to Kolaborate</span>
+                </span>
+            </h4>
+            </strong>
+            <strong><p>Hi, we offer quality blogs and we gather most popular information and accurate conent for you only! So
+                come and explore it. it will give you the way for knowledge sharing...</p></strong>
             <p><a class="btn btn-primary btn-lg" href="/blog" role="button">Go to blog »</a></p>
         </div>
     </div>
@@ -21,10 +54,14 @@
                 class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                 <div class="col p-4 d-flex flex-column position-static">
                     <strong class="d-inline-block mb-2 text-primary">Article by : {{post.author}}</strong>
-                    <h3 class="mb-0">{{post.title}}</h3>
-                    <div class="mb-1 text-muted">{{post.timeStamp}}</div>
+                    <h3 class="mb-0"><a class="text-dark" href="/blog/{{post.slug}}">{{post.title}}</a></h3>
+                    <div class="mb-1 text-muted">{{post.timeStamp}} 
+                        <span class="badge badge-secondary">Views {{post.views}}</span>
+                    </div>
                     <p class="card-text mb-auto"><div class="preview">{{post.content|safe | truncatechars:200 }}</div></p>
-                    <a href="/blog/{{post.slug}}" class="stretched-link">Continue reading...</a>
+                    <div class="my-2">
+                        <a href="/blog/{{post.slug}}" role="button" class="btn btn-primary">Continue reading</a>
+                    </div>
                 </div>
                 <div class="col-auto d-none d-lg-block">
                 </div>
@@ -40,6 +77,25 @@
     let previews = document.getElementsByClassName('preview');
     Array.from(previews).forEach((element)=>{
         element.innerHTML = element.innerText;
+    });
+
+    // Wrap every letter in a span heading float
+    var textWrapper = document.querySelector('.ml6 .letters');
+    textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+    anime.timeline({loop: true})
+    .add({
+        targets: '.ml6 .letter',
+        translateY: ["1.1em", 0],
+        translateZ: 0,
+        duration: 750,
+        delay: (el, i) => 50 * i
+    }).add({
+        targets: '.ml6',
+        opacity: 0,
+        duration: 1000,
+        easing: "easeOutExpo",
+        delay: 1000
     });
 </script>
 {% endblock js %}

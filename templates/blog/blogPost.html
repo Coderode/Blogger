@@ -10,9 +10,14 @@
             <!--blog content-->
             <div class="blog-post">
                 <h2 class="blog-post-title">{{post.title}}</h2>
-                <p class="blog-post-meta">{{post.timeStamp}} by <a href="/about">{{post.author}}</a></p>
-
-                <p>{{post.content|safe}}</p>  <!--safe :to show html safe mode access in the post so that we can put html in blog content -->
+                <p class="blog-post-meta">
+                    {{post.timeStamp}} by <a href="/about">{{post.author}}</a> 
+                    <button type="button" class="btn btn-sm btn-primary float-right">
+                        Views <span class="badge badge-light">{{post.views}}</span>
+                    </button>
+                </p>
+    
+                <div>{{post.content|safe}}</div>  <!--safe :to show html safe mode access in the post so that we can put html in blog content -->
                 <hr>
             </div><!-- /.blog-post -->
 
