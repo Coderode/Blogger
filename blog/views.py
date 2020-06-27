@@ -55,6 +55,6 @@ def postComment(request):
             
         return redirect(f"/blog/{post.slug}")
     else:
-        return HttpResponse('<h2>404 Page Not Found!</h2>')
+        return render(request,'home/errorpage.html')
     
 

@@ -1,10 +1,18 @@
 {% extends 'base.html' %}
 {% block title %}Blog Post | Kolaborate{% endblock title %}
-
+{% block css %}
+    
+    body{
+        background:url('/static/images/homeJumbotron.jpg');
+        background-size: 100% 100%;
+        background-attachment:fixed;
+    }
+    
+{% endblock css %}
 {% block body %}
 {% load humanize %}
 {% load extras %}
-<div class="container my-4">
+<div class="container my-0 bg-white p-4">
     <div class="row">
         <div class="col-md-8 blog-main">
             <!--blog content-->

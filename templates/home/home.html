@@ -6,6 +6,12 @@
     .jumbotron{
         background:url('/static/images/homeJumbotron.jpg');
         background-size: 100% 100%;
+        background-attachment:fixed;
+    }
+    .features{
+        background:url('/static/images/aboutJumbotron.png');
+        background-size: 100% 100%;
+        background-attachment:fixed;
     }
 
     .ml6 {
@@ -69,6 +75,58 @@
         </div>
     {% endfor %}
 </div>
+<hr>
+<div class="container">
+    <p style="color:grey; text-align:center;"><i>“Only on the Internet can a person be lonely and popular at the same time.”</i></p>
+    <p class="float-right" style="color:grey">― Allison Burnett, Undiscovered Gyrl</p>
+</div>
+<br><br>
+<hr>
+<div class="container-fluid features">
+    <div class="container py-4">
+        <!-- START THE FEATURETTES -->
+
+        <div class="row bg-white p-3">
+            <div class="col-md-7">
+                <h2 class="heading">First featurette heading. <span class="text-muted">It’ll blow your mind.</span></h2>
+                <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit dicta mollitia officia consequuntur placeat eius, ipsam dolor libero debitis sequi, possimus sed quasi corporis adipisci, pariatur dolorem nobis tenetur et!</p>
+            </div>
+            <div class="col-md-5">
+                <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="600" src="/static/images/feature1.png">
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row bg-white p-3">
+            <div class="col-md-7 order-md-2">
+                <h2 class="heading">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span>
+                </h2>
+                <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio aperiam nihil quibusdam necessitatibus cupiditate. Praesentium maxime sapiente facere porro blanditiis expedita pariatur dolore, cumque, fuga autem beatae placeat voluptates temporibus?</p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="600" src="/static/images/feature2.png">
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row bg-white p-3">
+            <div class="col-md-7">
+                <h2 class="heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+                <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Id eos, doloribus exercitationem voluptates temporibus quia blanditiis corporis dolorum aliquam aperiam recusandae mollitia reprehenderit obcaecati eius omnis numquam inventore possimus expedita!</p>
+            </div>
+            <div class="col-md-5">
+                <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="600" src="/static/images/feature3.png">
+            </div>
+        </div>
+
+        <hr>
+
+    <!-- /END THE FEATURETTES -->
+    </div>
+</div>
+
 
 {% endblock body %}
 

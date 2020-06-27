@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
 {% block title %}Contact | Kolaborate{% endblock title %}
 {% block  contactActive %}active{% endblock contactActive %}
-
+{% block css %}
+    body{
+        background:url('/static/images/contact.png');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position:100% 100% center;
+        background-size:cover;
+    }
+{% endblock css %}
 {% block body %}
-<div class="container my-3">
+<div class="container my-3 bg-white p-4">
     <h2>Contact to Kolaborators</h2>
     <form method="POST" action="/contact"> {% csrf_token %}
         <div class="form-group">

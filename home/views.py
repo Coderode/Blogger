@@ -88,7 +88,7 @@ def handleSignup(request):
             messages.error(request,'Username already exist please enter another unique username!')
         return redirect('home')
     else:
-        return HttpResponse('<h2>404 - Page Not Found</h2>')
+        return render(request,'home/errorpage.html')
 
 def handleLogin(request):
     if request.method == 'POST':
@@ -105,9 +105,10 @@ def handleLogin(request):
             messages.error(request,'Invalid credentials, Please try again! or signup before login if not registered!')
             return redirect('home')
     else:
-        return HttpResponse('<h2>404 - Page Not Found</h2>')
+        return render(request,'home/errorpage.html')
 
 def handleLogout(request):
-    logout(request)
-    messages.success(request, 'You are successfully logged out!')
+    if request.user.is_authenticated:
+        logout(request)
+        messages.success(request, 'You are successfully logged out!')
     return redirect('home')
