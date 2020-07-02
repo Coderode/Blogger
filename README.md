@@ -1,6 +1,6 @@
 # Kolaborate
 
-## Live Link (Heroku Deploy) : https://kolaborate-blogger.herokuapp.com/
+## Live Link (Heroku Deploy : For demo only) : https://kolaborate-blogger.herokuapp.com/
 ```
  A Blogging website for coders
  Built using Python Django Framework
